@@ -17,32 +17,46 @@ print('留言的平均長度為', sum_len/len(data))
 new = []
 for d in data:
 	if len(d) < 100:
-		new.append(dR)
+		new.append(d)
 print('一共有', len(new), '筆留言長度小於100')
 print(new[0])
 print(new[1])
 
 
-# good = []
-# for d in data:
-# 	if 'good' in d:
-# 		good.append(d)
-# print('一共有', len(good), '筆留言提到good')
-
-good = [1 for d in data if 'good' in d]
-print(good)
-
-bad = ['bad' in d for d in data]
-print(bad)
-
-bad = []
+good = []
 for d in data:
-    bad.append('bad' in d)
+	if 'good' in d:
+		good.append(d)
+print('一共有', len(good), '筆留言提到good')
 
-# count = 0
-# for review in good[:3]:
-# 	count += 1
-# 	print('這是第', count, '筆留言提到good')
-# 	print(review)
+
+# 文字計數
+wc = {} # word_count
+for d in data:
+	words = d.split() 
+	for word in words:
+		if word in wc:
+			wc[word] += 1
+		else:
+			wc[word] = 1 # 新增新的key進wc字典
+
+for word in wc:
+	if wc[word] > 1000000:
+		print(word, wc[word])
+
+print(len(wc))
+print(wc['Allen'])
+
+while True:
+	word = input('請問你想查什麼字: ')
+	if word == 'q':
+		break
+	if word in wc:
+		print(word, '出現過的次數為: ', wc[word])
+	else:
+		print('這個字沒有出現過喔!')
+
+print('感謝使用本查詢功能')
+
 
 
